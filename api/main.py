@@ -13,14 +13,16 @@ load_dotenv()
 
 app = FastAPI()
 
-# Enable CORS for frontend
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3002"],  # or ["*"] for dev
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 def get_connection():
     return psycopg2.connect(os.getenv("DATABASE_URL"))
