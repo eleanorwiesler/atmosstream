@@ -1,0 +1,9 @@
+# requirements.txt
+fastapi
+uvicorn[standard]
+psycopg2-binary==2.9.5
+python-dotenv
+requests
+apache-beam[gcp]  # Optional for later
+pytest
+apache-beam[gcp]

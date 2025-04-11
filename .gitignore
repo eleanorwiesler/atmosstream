@@ -1,0 +1,37 @@
+# === Secrets ===
+.env
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env/
+.venv/
+venv/
+*.log
+
+# === Node (React frontend) ===
+frontend/node_modules/
+frontend/build/
+frontend/.env
+
+# === VS Code ===
+.vscode/
+
+# === System ===
+.DS_Store
+Thumbs.db
+
+# === Docker ===
+*.pid
+*.db
+*.sqlite3
+
+# === Coverage/Test Artifacts ===
+.coverage
+htmlcov/
+.cache/
+pytest_cache/
+
+# === Jupyter ===
+.ipynb_checkpoints/
