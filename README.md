@@ -104,7 +104,7 @@ python -m ingestion.beam_pipeline
 
 ---
 
-## 🌐 Set up the frontend
+##  Set up the frontend
 
 ```bash
 cd frontend
@@ -133,7 +133,7 @@ pytest tests/
 
 ---
 
-## 📸 Dashboard Preview
+## Dashboard Preview
 
 See live city-wise metrics with real-time line charts for:
 
