@@ -1,24 +1,37 @@
-// src/App.js
-
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
   const [weather, setWeather] = useState(null);
+  const [city, setCity] = useState("San Francisco");
+
+  const cities = ["San Francisco", "New York", "Chicago", "Los Angeles", "Austin"];
 
   useEffect(() => {
-    fetch("http://localhost:8000/weather/latest?city=San Francisco")
+    fetch(`http://localhost:8000/weather/latest?city=${encodeURIComponent(city)}`)
       .then(res => res.json())
-      .then(data => setWeather(data))
-      .catch(err => console.error("Weather fetch failed", err));
-  }, []);
+      .then(data => {
+        console.log("🌡️ Weather data:", data);
+        setWeather(data);
+      })
+      .catch(err => console.error("❌ Weather fetch failed:", err));
+  }, [city]);
 
   return (
     <div className="App">
       <h1>🌍 AtmosStream Dashboard</h1>
 
       <section>
-        <h2>🌤 Weather (San Francisco)</h2>
+        <label htmlFor="city">Select City: </label>
+        <select id="city" value={city} onChange={(e) => setCity(e.target.value)}>
+          {cities.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
+      </section>
+
+      <section>
+        <h2>🌤 Weather ({city})</h2>
         {weather ? (
           <ul>
             <li><strong>Temperature:</strong> {weather.temperature}°C</li>
