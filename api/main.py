@@ -4,6 +4,7 @@ from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import psycopg2
 from dotenv import load_dotenv
+from datetime import timedelta
 import os
 from typing import List
 from datetime import datetime, timedelta
@@ -64,15 +65,24 @@ def get_latest_aqi(city: str):
 def get_weather_history(city: str = "San Francisco"):
     conn = get_connection()
     cur = conn.cursor()
+
+    # Query weather from the past 24 hours
     cur.execute("""
-        SELECT timestamp, temperature FROM weather
-        WHERE city = %s
-        ORDER BY timestamp DESC
-        LIMIT 20
+        SELECT timestamp, temperature, humidity, pressure, wind_speed
+        FROM weather
+        WHERE city = %s AND timestamp > NOW() - INTERVAL '1 day'
+        ORDER BY timestamp ASC
     """, (city,))
     rows = cur.fetchall()
-    return [{"timestamp": row[0], "temperature": row[1]} for row in rows]
-
+    return [
+        {
+            "timestamp": row[0],
+            "temperature": row[1],
+            "humidity": row[2],
+            "pressure": row[3],
+            "wind_speed": row[4]
+        } for row in rows
+    ]
 
 @app.get("/aqi/history", response_model=List[AQIRecord])
 def get_aqi_history(city: str, days: int = Query(3, ge=1, le=30)):

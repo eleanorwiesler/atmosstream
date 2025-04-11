@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+/* Stylish dropdown */
+select {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+select:hover {
+  border-color: #999;
+  background-color: #f1f1f1;
+}
+
+select:focus {
+  outline: none;
+  border-color: #555;
+  background-color: #fff;
+}
