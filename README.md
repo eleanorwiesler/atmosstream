@@ -6,6 +6,9 @@ The setup is pretty straightforward: I use public APIs (OpenWeatherMap and AirNo
 
 The backend lives in the `api/` directory, and the ingestion scripts that fetch new data are in `ingestion/`. There's also an optional Apache Beam version of the pipeline if you want to run things in a more distributed way, though I mostly used the simpler version. The frontend React app is in `frontend/` and runs on port 3002. Tests are included too — they're basic but useful.
 
+![atmosstream](atmos.png)
+
+
 To run it locally, you’ll need Python 3.10 and Node. First, clone the repo:
 
 ```bash
@@ -74,7 +77,6 @@ I tried to keep the code modular and readable so it’s easy to extend or plug i
 
 If you're interested in environmental monitoring, or just want to explore building a full-stack data pipeline, feel free to use or adapt it. I’d love to hear any feedback or ideas for improving it.
 
-![Alt text](atmos.png)
 
 
 
