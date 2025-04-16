@@ -75,10 +75,3 @@ I tried to keep the code modular and readable so it’s easy to extend or plug i
 If you're interested in environmental monitoring, or just want to explore building a full-stack data pipeline, feel free to use or adapt it. I’d love to hear any feedback or ideas for improving it.
 
 
-
----
-
-## 👩‍💻 Built By
-
-Eleanor Wiesler  
-[eleanorwiesler.com](https://eleanorwiesler.com)  
