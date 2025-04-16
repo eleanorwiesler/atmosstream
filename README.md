@@ -1,52 +1,45 @@
 # AtmosStream: Real-Time Air Quality & Weather Dashboard
 
-**AtmosStream** is a full-stack real-time data platform that fetches and displays weather and air quality data for multiple cities. It uses a distributed backend pipeline, PostgreSQL for storage, a FastAPI backend, and a React frontend with beautiful visualizations.
+AtmosStream is a project I built to track air quality and weather conditions across cities in real time. It pulls data from public APIs, stores it in a database, and shows everything in a clean React dashboard. I started this because I care about climate and environmental transparency—this kind of data should be easy to access and understand.
 
----
+## What it does
 
-## Features
+- Pulls live data from OpenWeatherMap and AirNow
+- Stores everything in a PostgreSQL database
+- Serves it via a FastAPI backend
+- Displays real-time graphs in a React frontend
+- Supports switching between cities
+- Tracks temperature, humidity, pressure, and wind speed
+- Optional Beam pipeline if you want to scale things up
 
-- Real-time weather and AQI data ingestion from OpenWeatherMap and AirNow
-- PostgreSQL-backed time-series storage
-- REST API via FastAPI for frontend consumption
-- Beautiful React dashboard with real-time graphs
-- Multi-city dropdown support
-- 2x2 chart layout for temperature, humidity, pressure, and wind speed
-- Optional: Apache Beam for distributed ingestion
-- Modular codebase, good for testing and scaling
-
----
-
-## Structure
+## Folder structure
 
 ```
 atmostream/
-├── ingestion/             # Data ingestion pipelines
+├── ingestion/             # Scripts to fetch and process API data
 │   ├── stream_pipeline.py
-│   └── beam_pipeline.py
-├── api/                   # FastAPI app
+│   └── beam_pipeline.py   # (Optional) for Apache Beam setup
+├── api/                   # FastAPI backend
 │   ├── main.py
 │   ├── models.py
-├── database/              # DB schema and utils
+├── database/              # DB schema and utility functions
 │   ├── db_utils.py
 │   └── schema.sql
-├── frontend/              # React app (runs on port 3002)
+├── frontend/              # React frontend (runs on port 3002)
 │   └── src/
 │       ├── App.js
 │       └── components/
 ├── tests/                 # Unit tests
 │   ├── test_api.py
 │   └── test_db.py
-├── .env                   # API keys and DB config (not committed)
-├── requirements.txt       # Python backend dependencies
-├── docker-compose.yml     # (Optional) container setup
-├── package.json           # React frontend dependencies
+├── .env                   # API keys + DB URL (not committed)
+├── requirements.txt       # Python dependencies
+├── docker-compose.yml     # Optional Docker setup
+├── package.json           # React dependencies
 └── README.md
 ```
 
----
-
-## Instructions
+## Getting it running
 
 ### 1. Clone the repo
 
@@ -63,48 +56,44 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Create your `.env` file:
+Create a `.env` file in the root folder with this:
 
-```env
+```
 OPENWEATHER_API_KEY=your_openweather_api_key
 AIRNOW_API_KEY=your_airnow_api_key
 DATABASE_URL=postgresql://youruser:yourpass@localhost:5432/atmosdb
 ```
 
-### 3. Set up the PostgreSQL database
+### 3. Set up the database
 
 ```bash
 createdb atmosdb
 psql -d atmosdb -f database/schema.sql
 ```
 
-### 4. Run the backend server
+### 4. Run the backend
 
 ```bash
 uvicorn api.main:app --reload
 ```
 
-Server will run at: [http://localhost:8000](http://localhost:8000)
+You can now visit: http://localhost:8000
 
----
+## Pulling in live data
 
-## Ingest Data
-
-To pull fresh data from OpenWeather and AirNow:
+To start pulling real-time weather and air quality data:
 
 ```bash
 python -m ingestion.stream_pipeline
 ```
 
-Or use Apache Beam (optional):
+(Or use the Beam version if that’s your thing:)
 
 ```bash
 python -m ingestion.beam_pipeline
 ```
 
----
-
-##  Set up the frontend
+## Running the frontend
 
 ```bash
 cd frontend
@@ -112,37 +101,25 @@ npm install
 npm start
 ```
 
-React app will run at: [http://localhost:3002](http://localhost:3002)
+This runs the dashboard on http://localhost:3002
 
----
-
-## Testing
+## Running tests
 
 ```bash
 pytest tests/
 ```
 
----
+## A few notes
 
-## Notes
+- Python 3.10+ required
+- PostgreSQL needs to be running
+- `.env` should never be committed (it’s gitignored)
+- Frontend runs on 3002, backend on 8000
 
-- Requires Python 3.10+
-- Make sure PostgreSQL is running locally
-- Set correct port (3002) when using frontend with API
-- `.env` should **not** be committed (it's in `.gitignore`)
+## Why I made this
 
----
+I wanted to build something real around climate data—something useful and understandable. Weather and air quality affect all of us, and this dashboard makes that data feel more tangible. If you have ideas for improvements or want to build on it, feel free to reach out.
 
-## Dashboard Preview
-
-See live city-wise metrics with real-time line charts for:
-
-- Temperature
-- Humidity
-- Wind Speed
-- Pressure
-
-Displayed in a clean 2x2 grid layout.
 
 ---
 
